@@ -76,11 +76,17 @@
         <quartz.version>2.3.0</quartz.version>
         <servlet-api.version>2.5</servlet-api.version>
         <jsp-api.version>2.0</jsp-api.version>
+        <aopalliance.version>1.0</aopalliance.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
             <!--spring-->
+            <dependency>
+                <groupId>aopalliance</groupId>
+                <artifactId>aopalliance</artifactId>
+                <version>${aopalliance.version}</version>
+            </dependency>
             <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-context</artifactId>
