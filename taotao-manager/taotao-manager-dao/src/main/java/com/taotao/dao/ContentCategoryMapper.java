@@ -14,4 +14,5 @@ public interface ContentCategoryMapper {
     int updateByPrimaryKeySelective(ContentCategory record);
 
     int updateByPrimaryKey(ContentCategory record);
+
 }
