@@ -1,10 +1,13 @@
 package com.taotao.controller;
 
 import com.taotao.model.Item;
+import com.taotao.model.Test;
 import com.taotao.service.ItemService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,19 +25,21 @@ import java.util.List;
  * Time: 12:24
  */
 @Controller
+@RequestMapping("/item")
 public class ItemController {
     private static final Logger logger = LoggerFactory.getLogger(ItemController.class);
     @Autowired
     private ItemService itemService;
 
 
-    @RequestMapping("/item/{itemId}")
+
+    @RequestMapping("/{itemId}")
     @ResponseBody
     public Item getItemById(@PathVariable("itemId") Long id) {
         return itemService.getItemById(id);
     }
 
-    @RequestMapping("item/list")
+    @RequestMapping("/list")
     @ResponseBody
     public EasyUIPagedResult list(int page, int rows) {
         logger.info("日志打印");
@@ -44,7 +49,7 @@ public class ItemController {
         return pagedResult;
     }
 
-    @RequestMapping("/item/save")
+    @RequestMapping("/save")
     @ResponseBody
     public CallbackResult createItem(Item item,String desc){
         CallbackResult result=new CallbackResult();
@@ -52,4 +57,5 @@ public class ItemController {
         result.setStatus(200);
         return result;
     }
+
 }
