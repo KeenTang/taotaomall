@@ -7,6 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import taotao.common.utils.RedisUtils;
+
+import java.util.UUID;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,6 +31,25 @@ public class TestController {
             } else {
                 System.out.println("第" + i + "次执行失败");
             }
+        }
+        return new ResponseEntity("Success", HttpStatus.OK);
+    }
+
+    @RequestMapping("/test2")
+    public ResponseEntity test2() {
+        System.out.println("test2");
+        String key = "partno1";
+        String requestId = UUID.randomUUID().toString();
+        if (RedisUtils.tryGetLock(key, requestId, 5000)) {
+            try {
+                this.save();
+            } finally {
+                boolean result = RedisUtils.releaseDistributedLock(key, requestId);
+                System.out.println("解锁结果:" + result);
+            }
+
+        } else {
+            System.out.println("获取锁失败");
         }
         return new ResponseEntity("Success", HttpStatus.OK);
     }
