@@ -27,7 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Controller
 public class TestController {
-    private final static LoggerF
+    //private final static LoggerF
     @Autowired
     private TestService testService;
 
