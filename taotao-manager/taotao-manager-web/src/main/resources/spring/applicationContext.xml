@@ -62,4 +62,5 @@
         <aop:pointcut id="pointcutTransaction" expression="execution(* com.taotao.service..*(..))"></aop:pointcut>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="pointcutTransaction"></aop:advisor>
     </aop:config>
+
 </beans>
