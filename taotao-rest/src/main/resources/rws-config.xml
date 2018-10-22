@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+    http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+
+
+    <jaxrs:server>
+        <!--输入拦截器-->
+        <jaxrs:inInterceptors></jaxrs:inInterceptors>
+        <!--输出拦截器-->
+        <jaxrs:outInterceptors></jaxrs:outInterceptors>
+
+        <!--暴露的服务bean-->
+        <jaxrs:serviceBeans>
+            <ref bean="testServiceImpl"/>
+        </jaxrs:serviceBeans>
+
+        <!--配置-->
+        <!--支持的协议
+        <jaxrs:extensionMappings>
+            <entry key="json" value="application/json"/>
+            <entry key="xml" value="application/xml"/>
+        </jaxrs:extensionMappings>
+        -->
+
+        <jaxrs:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+</beans>

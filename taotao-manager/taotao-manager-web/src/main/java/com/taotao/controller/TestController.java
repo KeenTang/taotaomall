@@ -2,6 +2,8 @@ package com.taotao.controller;
 
 import com.taotao.model.Test;
 import com.taotao.service.TestService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.connection.RedisStringCommands;
@@ -27,7 +29,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 @Controller
 public class TestController {
-    //private final static LoggerF
+    private final static Logger LOGGER = LoggerFactory.getLogger(TestController.class);
+
     @Autowired
     private TestService testService;
 
@@ -38,6 +41,15 @@ public class TestController {
 
     @Autowired
     private JedisCluster jedisCluster;
+
+    @RequestMapping("/testLog")
+    public ResponseEntity testLog() {
+        LOGGER.info("日志消息-info");
+        LOGGER.warn("日志消息-warn");
+        LOGGER.warn("日志消息-debug");
+        LOGGER.warn("日志消息-error");
+        return new ResponseEntity("Success", HttpStatus.OK);
+    }
 
     @RequestMapping("/test")
     public ResponseEntity test() {
@@ -72,9 +84,9 @@ public class TestController {
     }
 
     @RequestMapping("/testRedis")
-    public ResponseEntity testRedis(){
-        jedisCluster.set("TEst","TEst");
-        return new ResponseEntity("Success",HttpStatus.OK);
+    public ResponseEntity testRedis() {
+        jedisCluster.set("TEst", "TEst");
+        return new ResponseEntity("Success", HttpStatus.OK);
     }
 
 
