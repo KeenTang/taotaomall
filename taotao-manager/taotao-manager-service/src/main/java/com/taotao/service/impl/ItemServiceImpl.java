@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import taotao.common.model.EasyUIPagedResult;
 import taotao.common.utils.IDUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -58,16 +59,31 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void createItem(Item item, String desc) {
-        item.setId(IDUtils.getItemID());
-        item.setStatus(1);
-        item.setCreated(new Date());
-        item.setUpdated(item.getCreated());
-        itemMapper.insert(item);
-        ItemDesc itemDesc=new ItemDesc();
-        itemDesc.setItemId(item.getId());
-        itemDesc.setItemDesc(desc);
-        BeanUtils.copyProperties(item,itemDesc);
-        itemDescMapper.insert(itemDesc);
+        List<Item> list = new ArrayList(500);
+        List<ItemDesc> descList = new ArrayList<>(list.size());
+        for (int i = 0; i < 500; i++) {
+            item.setId(IDUtils.getItemID());
+            item.setStatus(1);
+            item.setCreated(new Date());
+            item.setUpdated(item.getCreated());
+            list.add(item);
+        }
+        long st = System.currentTimeMillis();
+        int count = itemMapper.batchInsert(list);
+        long et = System.currentTimeMillis();
+        long t1 = (et - st);
+        ItemDesc itemDesc = new ItemDesc();
+        for (int i = 0; i < 500; i++) {
+            itemDesc.setItemId(item.getId());
+            itemDesc.setItemDesc(desc);
+            BeanUtils.copyProperties(item, itemDesc);
+            descList.add(itemDesc);
+        }
+        st = System.currentTimeMillis();
+        int count2 = itemDescMapper.batchInsert(descList);
+        et = System.currentTimeMillis();
+        System.out.println("time1==" + t1 + "count==" + count);
+        System.out.println("time2==" + (et - st) + "count==" + count2);
     }
 
 }

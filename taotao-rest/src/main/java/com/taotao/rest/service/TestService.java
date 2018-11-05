@@ -5,6 +5,7 @@ import org.apache.cxf.rs.security.cors.CrossOriginResourceSharing;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.Map;
 
 /**
  * Created with IntelliJ IDEA.
@@ -21,6 +22,15 @@ public interface TestService {
     @Path("/test/{id}")
     @GET
     Test test(@PathParam("id") String id);
+
+    /**
+     * testPost
+     * @param map
+     * @return
+     */
+    @Path("/testPost")
+    @POST
+    String testPost(Map<String,Object> map);
 
 
 //    @POST

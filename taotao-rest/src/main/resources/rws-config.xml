@@ -16,6 +16,7 @@
         <!--暴露的服务bean-->
         <jaxrs:serviceBeans>
             <ref bean="testServiceImpl"/>
+            <ref bean="itemCatServiceImpl"/>
         </jaxrs:serviceBeans>
 
         <!--配置-->
@@ -27,6 +28,11 @@
         -->
 
         <jaxrs:providers>
+            <bean class="org.apache.cxf.rs.security.cors.CrossOriginResourceSharingFilter">
+                <property name="allowOrigins"
+                          value="*">
+                </property>
+            </bean>
             <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJaxbJsonProvider"/>
         </jaxrs:providers>
     </jaxrs:server>

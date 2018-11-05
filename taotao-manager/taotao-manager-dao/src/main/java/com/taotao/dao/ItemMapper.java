@@ -18,4 +18,6 @@ public interface ItemMapper {
     int updateByPrimaryKey(Item record);
 
     List<Item> selectAll();
+
+    int batchInsert(List<Item> list);
 }
