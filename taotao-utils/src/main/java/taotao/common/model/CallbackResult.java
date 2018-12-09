@@ -15,6 +15,18 @@ public class CallbackResult implements Serializable {
     private String message;
     private Object data;
 
+    public CallbackResult(){}
+
+    public CallbackResult(int status, String message) {
+        this(status, message, null);
+    }
+
+    public CallbackResult(int status, String message, Object data) {
+        this.status = status;
+        this.message = message;
+        this.data = data;
+    }
+
     public int getStatus() {
         return status;
     }
